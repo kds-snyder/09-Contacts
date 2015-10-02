@@ -1,0 +1,16 @@
+C:\dev\09-Contacts\WpfContacts\bin\Debug\WpfContacts.exe.config
+C:\dev\09-Contacts\WpfContacts\bin\Debug\WpfContacts.exe
+C:\dev\09-Contacts\WpfContacts\bin\Debug\WpfContacts.pdb
+C:\dev\09-Contacts\WpfContacts\obj\Debug\WpfContacts.csprojResolveAssemblyReference.cache
+C:\dev\09-Contacts\WpfContacts\obj\Debug\EditContactWindow.g.cs
+C:\dev\09-Contacts\WpfContacts\obj\Debug\MainWindow.g.cs
+C:\dev\09-Contacts\WpfContacts\obj\Debug\App.g.cs
+C:\dev\09-Contacts\WpfContacts\obj\Debug\WpfContacts_MarkupCompile.cache
+C:\dev\09-Contacts\WpfContacts\obj\Debug\WpfContacts_MarkupCompile.lref
+C:\dev\09-Contacts\WpfContacts\obj\Debug\EditContactWindow.baml
+C:\dev\09-Contacts\WpfContacts\obj\Debug\MainWindow.baml
+C:\dev\09-Contacts\WpfContacts\obj\Debug\WpfContacts.g.resources
+C:\dev\09-Contacts\WpfContacts\obj\Debug\WpfContacts.Properties.Resources.resources
+C:\dev\09-Contacts\WpfContacts\obj\Debug\WpfContacts.csproj.GenerateResource.Cache
+C:\dev\09-Contacts\WpfContacts\obj\Debug\WpfContacts.exe
+C:\dev\09-Contacts\WpfContacts\obj\Debug\WpfContacts.pdb
