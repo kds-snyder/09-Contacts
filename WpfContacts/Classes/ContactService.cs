@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace WpfContacts.Classes
 {
@@ -43,6 +45,13 @@ namespace WpfContacts.Classes
             }
         }
 
+        // Method to add contract entry to the list
+        // Input is the contact to add
+        public static void AddContact(ContactEntry contact)
+        {
+            ContactList.Add(contact);
+        }
+
         // Method to delete contact corresponding to input contact ID
         public static void DeleteContact (int id)
         {
@@ -53,13 +62,21 @@ namespace WpfContacts.Classes
             }            
         }
 
-        // Method to add contract entry to the list
-        // Input is the contact to add
-        public static void AddContact (ContactEntry contact)
+        // Method to read contacts from file
+        public static void ReadFromFile(string fileName)
         {
-            ContactList.Add(contact);      
+            string json = File.ReadAllText(fileName);
+            ContactList =
+              JsonConvert.DeserializeObject<ObservableCollection<ContactEntry>>(json);
         }
 
+        // Method to save contacts to file
+        public static void SaveToFile (string fileName)
+        {
+            string json =
+                 JsonConvert.SerializeObject(ContactList);
+            File.WriteAllText(fileName, json);
+        }
 
     }
 }

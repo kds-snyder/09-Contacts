@@ -60,7 +60,7 @@ namespace WpfContacts
             } 
             else
             {
-                updateContact();
+                updateContact(contactID);
             }
 
             // Close the window
@@ -88,18 +88,26 @@ namespace WpfContacts
         }
 
         // Update existing contact
-        private void updateContact()
+        private void updateContact(int contactId)
         {
-            // Get the contact corresponding to the contact ID
-            ContactEntry EditedContact =
-                ContactService.GetContactById((int)label_Id.Content);
+            try
+            {
+                // Get the contact corresponding to the contact ID
+                ContactEntry EditedContact =
+                    ContactService.GetContactById(contactId);
 
-            // Copy window data to contact
-            copyContactData(EditedContact);
+                // Copy window data to contact
+                copyContactData(EditedContact);
 
-            // Refresh the data grid in the main window
-            var mainWindow = (MainWindow)Owner;
-            mainWindow.dataGrid_contacts.Items.Refresh();
+                // Refresh the data grid in the main window
+                var mainWindow = (MainWindow)Owner;
+                mainWindow.dataGrid_contacts.Items.Refresh();
+            }
+            catch (Exception except)
+            {
+                MessageBox.Show ("An error occurred while updating contact ID " 
+                    + contactId + ": " + except.Message);
+            }
         }
 
         // Copy contact data from window to contact object

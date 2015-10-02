@@ -14,3 +14,5 @@ C:\dev\09-Contacts\WpfContacts\obj\Debug\WpfContacts.Properties.Resources.resour
 C:\dev\09-Contacts\WpfContacts\obj\Debug\WpfContacts.csproj.GenerateResource.Cache
 C:\dev\09-Contacts\WpfContacts\obj\Debug\WpfContacts.exe
 C:\dev\09-Contacts\WpfContacts\obj\Debug\WpfContacts.pdb
+C:\dev\09-Contacts\WpfContacts\bin\Debug\Newtonsoft.Json.dll
+C:\dev\09-Contacts\WpfContacts\bin\Debug\Newtonsoft.Json.xml

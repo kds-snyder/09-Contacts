@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfContacts.Classes;
+using Newtonsoft.Json;
+using System.IO;
+using System.Collections.ObjectModel;
 
 namespace WpfContacts
 {
@@ -21,6 +24,8 @@ namespace WpfContacts
     /// </summary>
     public partial class MainWindow : Window
     {
+        public string contactsFilePath = "C:\\temp";
+        public string contactsFileName = "contacts.json";        
         public MainWindow()
         {
             InitializeComponent();
@@ -86,14 +91,48 @@ namespace WpfContacts
             }
         }
 
-        // Window loaded
+        // Window loaded: 
+        // Read contacts from file 
         // Hide the ID column
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // Read contacts list file if it exists
+            if (File.Exists(contactsFilePath + "\\" + contactsFileName))
+            {
+                // Read contacts from file
+                ContactService.ReadFromFile(contactsFilePath + "\\" + contactsFileName);
+
+                // Specify contact list as source for data grid
+                dataGrid_contacts.ItemsSource = ContactService.ContactList;
+
+                // MessageBox.Show("ContactList count: " + ContactService.ContactList.Count);
+            }
+         
+
             // Hide the ID column
             int idColumn = ContactEntry.IdColumnIndex();
             dataGrid_contacts.Columns[idColumn].Visibility 
-                                        = Visibility.Hidden;
+                                       = Visibility.Hidden;
+        }
+
+        // Exiting application: Save contacts list
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            try
+            {
+                // Create directory if it doesn't exist,
+                // and save file
+                if (!Directory.Exists(contactsFilePath))
+                {
+                    Directory.CreateDirectory(contactsFilePath);
+                }
+                    ContactService.SaveToFile(contactsFilePath + "\\" + contactsFileName);
+            }
+            catch (Exception except)
+            {
+                MessageBox.Show("Error saving contacts file: " + except.Message);
+            }
+                       
         }
     }
 }
