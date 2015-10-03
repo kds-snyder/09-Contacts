@@ -29,7 +29,7 @@ namespace WpfContacts
         // Initialize contact entry: set contact Id to null value
         public void InitContractEntry()
         {
-            label_Id.Content = ID.NullId;
+            label_Id.Content = ContactService.NullId;
         }
         
         // Display input contact entry
@@ -42,10 +42,14 @@ namespace WpfContacts
             textBox_Address1.Text = contact.AddressLine1;
             textBox_Address2.Text = contact.AddressLine2;
             textBox_city.Text = contact.City;
-            textBox_state.Text = contact.State;
-            textBox_zipCode.Text = contact.ZipCode;
+            textBox_state.Text = contact.StateOrInfo1;
+            textBox_zipCode.Text = contact.ZipOrInfo2;
             label_Id.Content = contact.Id;
-        }
+
+            // Set display according to 
+            //  indicator of non US address
+            setDisplayNonUSAddress(contact.nonUSAddress);
+       }
 
         // Save button clicked: save contact and close window
         private void button_save_Click(object sender, RoutedEventArgs e)
@@ -54,7 +58,7 @@ namespace WpfContacts
             //  otherwise update contact
 
             int contactID = (int)label_Id.Content;
-            if (contactID == ID.NullId)
+            if (contactID == ContactService.NullId)
             {
                 addNewContact();
             } 
@@ -73,6 +77,49 @@ namespace WpfContacts
             this.Close();
         }
 
+        // Checkbox for non US address selected: set labels
+        private void checkBox_nonUSAddress_Checked(object sender, RoutedEventArgs e)
+        {
+            setLabelsNonUSAddress();
+        }
+
+        // Checkbox for non US address cleared: set labels
+        private void checkBox_nonUSAddress_Unchecked(object sender, RoutedEventArgs e)
+        {
+            setLabelsUSAddress();
+        }
+
+        // Set checkbox & labels according to 
+        //   input nonUSAddress, which is true if non-US address,
+        //    otherwise false
+        private void setDisplayNonUSAddress(bool nonUSAddress)
+        {
+            if (nonUSAddress)
+            {
+                checkBox_nonUSAddress.IsChecked = true;
+                setLabelsNonUSAddress();
+            }
+            else
+            {
+                checkBox_nonUSAddress.IsChecked = false;
+                setLabelsUSAddress();
+            }
+        }
+         
+        // Set labels for non-US address  
+        private void setLabelsNonUSAddress()
+        {
+            label_state.Content = "Additional Info (1)";
+            label_zipCode.Content = "Additional Info (2)";
+        }
+
+        // Set labels for US address  
+        private void setLabelsUSAddress()
+        {
+            label_state.Content = "State";
+            label_zipCode.Content = "Zip Code";
+        }
+
         // Add new contact from window data
         private void addNewContact()
         {
@@ -81,7 +128,7 @@ namespace WpfContacts
             copyContactData(newContact);
             
             // Get a new ID for the contact
-            newContact.Id = ID.getNewId();
+            newContact.Id = ContactService.getNewId();
 
             // Add the new contact
             ContactService.AddContact(newContact);
@@ -113,6 +160,7 @@ namespace WpfContacts
         // Copy contact data from window to contact object
         private void copyContactData (ContactEntry contact)
         {
+            // Copy textbox fields to contact
             contact.FirstName = textBox_firstName.Text;
             contact.LastName = textBox_lastName.Text;
             contact.EmailAddress = textBox_emailAddress.Text;
@@ -120,10 +168,24 @@ namespace WpfContacts
             contact.AddressLine1 = textBox_Address1.Text;
             contact.AddressLine2 = textBox_Address2.Text;
             contact.City = textBox_city.Text;
-            contact.State = textBox_state.Text;
-            contact.ZipCode = textBox_zipCode.Text;
+            contact.StateOrInfo1 = textBox_state.Text;
+            contact.ZipOrInfo2 = textBox_zipCode.Text;
+
+            // Copy contact ID
             contact.Id = (int)label_Id.Content;
+
+            // Set indication of non-US address according to checkbox
+            if (checkBox_nonUSAddress.IsChecked == true)
+            {
+                contact.nonUSAddress = true;
+            }
+            else
+            {
+                contact.nonUSAddress = false;
+            }
+            
         }
+
 
     }
 }

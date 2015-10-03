@@ -16,14 +16,22 @@ namespace WpfContacts.Classes
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
         public string City { get; set; }
-        public string State { get; set; }
-        public string ZipCode { get; set; }  
+        // Indicates if address is not in US
+        public bool nonUSAddress { get; set; }
+
+        // If nonUSaddress is false, holds state,
+        // otherwise holds extra information
+        public string StateOrInfo1 { get; set; }
+
+        // If nonUSaddress is false, holds zip code,
+        // otherwise holds extra information
+        public string ZipOrInfo2 { get; set; }  
         public int Id { get; set; }  
         
         // Method to return column index of Id        
         public static int IdColumnIndex()
         {
-            return 9;
+            return 10;
         }    
     }
 }

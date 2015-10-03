@@ -106,13 +106,12 @@ namespace WpfContacts
                 dataGrid_contacts.ItemsSource = ContactService.ContactList;
 
                 // MessageBox.Show("ContactList count: " + ContactService.ContactList.Count);
-            }
-         
+            }         
 
             // Hide the ID column
             int idColumn = ContactEntry.IdColumnIndex();
             dataGrid_contacts.Columns[idColumn].Visibility 
-                                       = Visibility.Hidden;
+                                      = Visibility.Hidden;
         }
 
         // Exiting application: Save contacts list
