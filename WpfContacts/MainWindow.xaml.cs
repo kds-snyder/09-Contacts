@@ -96,17 +96,8 @@ namespace WpfContacts
         // Hide the ID column
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // Read contacts list file if it exists
-            if (File.Exists(contactsFilePath + "\\" + contactsFileName))
-            {
-                // Read contacts from file
-                ContactService.ReadFromFile(contactsFilePath + "\\" + contactsFileName);
-
-                // Specify contact list as source for data grid
-                dataGrid_contacts.ItemsSource = ContactService.ContactList;
-
-                // MessageBox.Show("ContactList count: " + ContactService.ContactList.Count);
-            }         
+            // Load from contacts list file if it exists
+            LoadContacts();
 
             // Hide the ID column
             int idColumn = ContactEntry.IdColumnIndex();
@@ -132,6 +123,23 @@ namespace WpfContacts
                 MessageBox.Show("Error saving contacts file: " + except.Message);
             }
                        
+        }
+
+        // Load contacts from file if it exists,
+        // and specify contact list as source for data grid
+        private void LoadContacts ()
+        {
+            // Read contacts list file if it exists
+            if (File.Exists(contactsFilePath + "\\" + contactsFileName))
+            {
+                // Read contacts from file
+                ContactService.ReadFromFile(contactsFilePath + "\\" + contactsFileName);
+
+                // Specify contact list as source for data grid
+                dataGrid_contacts.ItemsSource = ContactService.ContactList;
+
+                // MessageBox.Show("ContactList count: " + ContactService.ContactList.Count);
+            }
         }
     }
 }
