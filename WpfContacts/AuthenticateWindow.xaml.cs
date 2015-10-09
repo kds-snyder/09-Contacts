@@ -28,11 +28,10 @@ namespace WpfContacts
             InitializeComponent();
         }
           
-         // Window loaded: insert phone number placeholder
+         // Window loaded: set phone number placeholder
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            textBox_phoneNumber.Text = placeholderPhoneNumber;
-            textBox_phoneNumber.Foreground = Brushes.Gray;
+            SetPlaceholderPhoneNumber();
         }
 
          // User entered phone number: send SMS with verification code,
@@ -40,16 +39,16 @@ namespace WpfContacts
         private void button_submitPhoneNumber_Click(object sender, RoutedEventArgs e)
         {
 
-            // Display error message if nothing was entered or
-            // phone number is not valid
+            // Take no action if nothing was entered
             if (textBox_phoneNumber.Text == placeholderPhoneNumber)
-            {
-                ShowSmsError("Please enter a valid phone number");
+            {                
                 return;
             }
+
+            // Display error message if phone number is not valid 
             if (!phoneNumberValid(textBox_phoneNumber.Text))
             {
-                ShowSmsError("Please enter a valid phone number");               
+                ShowSmsError("Please enter a valid phone number containing only digits");               
                 return;
             }
 
@@ -98,26 +97,24 @@ namespace WpfContacts
         }
 
         // User entered the phone number text box: 
-        //  Remove placeholder if applicaable,
+        //  Clear placeholder if applicaable,
         //   and clear the SMS error message 
         private void textBox_phoneNumber_GotFocus(object sender, RoutedEventArgs e)
         {
             if (textBox_phoneNumber.Text == placeholderPhoneNumber)
             {
-                textBox_phoneNumber.Text = "";
-                textBox_phoneNumber.Foreground = Brushes.Black;
+                ClearPlaceholderPhoneNumber();
             }
             ClearSmsError();
         }
 
         // User left the phone number text box: 
-        //  insert placeholder if text box is empty
+        //  set placeholder if text box is empty
         private void textBox_phoneNumber_LostFocus(object sender, RoutedEventArgs e)
         {
             if (textBox_phoneNumber.Text == "")
             {
-                textBox_phoneNumber.Text = placeholderPhoneNumber;
-                textBox_phoneNumber.Foreground = Brushes.Gray;
+                SetPlaceholderPhoneNumber();
             }
         }
 
@@ -176,6 +173,21 @@ namespace WpfContacts
             textBlock_smsError.Text = "";
             textBlock_smsError.Visibility = Visibility.Hidden;           
         }
- 
+
+        //Set placeholder for phone number
+        private void SetPlaceholderPhoneNumber()
+        {
+            textBox_phoneNumber.Text = placeholderPhoneNumber;
+            textBox_phoneNumber.Foreground = Brushes.Gray;
+        }
+
+        //Clear placeholder for phone number
+        private void ClearPlaceholderPhoneNumber()
+        {
+            textBox_phoneNumber.Text = "";
+            textBox_phoneNumber.Foreground = Brushes.Black;
+        }
+
+
     }
 }
