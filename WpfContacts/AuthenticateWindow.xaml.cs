@@ -32,6 +32,7 @@ namespace WpfContacts
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             textBox_phoneNumber.Text = placeholderPhoneNumber;
+            textBox_phoneNumber.Foreground = Brushes.Gray;
         }
 
          // User entered phone number: send SMS with verification code,
@@ -104,6 +105,7 @@ namespace WpfContacts
             if (textBox_phoneNumber.Text == placeholderPhoneNumber)
             {
                 textBox_phoneNumber.Text = "";
+                textBox_phoneNumber.Foreground = Brushes.Black;
             }
             ClearSmsError();
         }
@@ -115,6 +117,7 @@ namespace WpfContacts
             if (textBox_phoneNumber.Text == "")
             {
                 textBox_phoneNumber.Text = placeholderPhoneNumber;
+                textBox_phoneNumber.Foreground = Brushes.Gray;
             }
         }
 
