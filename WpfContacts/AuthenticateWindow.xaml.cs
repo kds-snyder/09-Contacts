@@ -20,24 +20,39 @@ namespace WpfContacts
     /// </summary>
     public partial class AuthenticateWindow : Window
     {
-        public const string placeholderPhoneNumber = "Enter phone number";
+        public const string placeholderPhoneNumber = 
+            "Enter phone number, using only digits";
 
         public AuthenticateWindow()
         {
             InitializeComponent();
-        }        
+        }
+          
+         // Window loaded: insert phone number placeholder
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            textBox_phoneNumber.Text = placeholderPhoneNumber;
+        }
 
-        // User entered phone number: send SMS with verification code,
+         // User entered phone number: send SMS with verification code,
         //  and then show code controls and hide phone number submit button
         private void button_submitPhoneNumber_Click(object sender, RoutedEventArgs e)
         {
-            // Display error message if phone number is not valid
-            //  or SMS could not be sent
+
+            // Display error message if nothing was entered or
+            // phone number is not valid
+            if (textBox_phoneNumber.Text == placeholderPhoneNumber)
+            {
+                ShowSmsError("Please enter a valid phone number");
+                return;
+            }
             if (!phoneNumberValid(textBox_phoneNumber.Text))
             {
                 ShowSmsError("Please enter a valid phone number");               
                 return;
             }
+
+            //  Valid phone number: send SMS with new verification code
             if (SmsService.sendSms(textBox_phoneNumber.Text, 
                 VerificationCodeService.GetNewVerificationCode()))
             {
@@ -46,6 +61,7 @@ namespace WpfContacts
                 SetWindowToGetCode();
             }
             else
+            // Display error message if SMS could not be sent
             {
                 ShowSmsError
                   ("SMS could not be sent; please try a different phone number");              
@@ -80,16 +96,31 @@ namespace WpfContacts
             }
         }
 
-        // Phone number changed: clear the SMS error message 
-        private void textBox_phoneNumber_TextChanged(object sender, TextChangedEventArgs e)
+        // User entered the phone number text box: 
+        //  Remove placeholder if applicaable,
+        //   and clear the SMS error message 
+        private void textBox_phoneNumber_GotFocus(object sender, RoutedEventArgs e)
         {
-            textBlock_smsError.Text = "";
-            textBlock_smsError.Visibility = Visibility.Hidden;
+            if (textBox_phoneNumber.Text == placeholderPhoneNumber)
+            {
+                textBox_phoneNumber.Text = "";
+            }
+            ClearSmsError();
+        }
+
+        // User left the phone number text box: 
+        //  insert placeholder if text box is empty
+        private void textBox_phoneNumber_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (textBox_phoneNumber.Text == "")
+            {
+                textBox_phoneNumber.Text = placeholderPhoneNumber;
+            }
         }
 
         // Validate that input is phone number
         // Return true if valid, otherwise false
-        // If input is empty, return false
+        // (if input is empty, return false)
         private bool phoneNumberValid (string input)
         {
             bool result = false;
@@ -136,5 +167,12 @@ namespace WpfContacts
             textBlock_smsError.Visibility = Visibility.Visible;
         }
 
+        // Clear error message in textblock_smsError
+        private void ClearSmsError()
+        {
+            textBlock_smsError.Text = "";
+            textBlock_smsError.Visibility = Visibility.Hidden;           
+        }
+ 
     }
 }
