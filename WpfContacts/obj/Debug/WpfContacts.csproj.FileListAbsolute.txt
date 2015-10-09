@@ -16,3 +16,10 @@ C:\dev\09-Contacts\WpfContacts\obj\Debug\WpfContacts.exe
 C:\dev\09-Contacts\WpfContacts\obj\Debug\WpfContacts.pdb
 C:\dev\09-Contacts\WpfContacts\bin\Debug\Newtonsoft.Json.dll
 C:\dev\09-Contacts\WpfContacts\bin\Debug\Newtonsoft.Json.xml
+C:\dev\09-Contacts\WpfContacts\bin\Debug\RestSharp.dll
+C:\dev\09-Contacts\WpfContacts\bin\Debug\Twilio.Api.dll
+C:\dev\09-Contacts\WpfContacts\bin\Debug\RestSharp.xml
+C:\dev\09-Contacts\WpfContacts\bin\Debug\Twilio.Api.pdb
+C:\dev\09-Contacts\WpfContacts\bin\Debug\Twilio.Api.xml
+C:\dev\09-Contacts\WpfContacts\obj\Debug\AuthenticateWindow.g.cs
+C:\dev\09-Contacts\WpfContacts\obj\Debug\AuthenticateWindow.baml

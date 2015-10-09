@@ -91,18 +91,16 @@ namespace WpfContacts
             }
         }
 
-        // Window loaded: 
-        // Read contacts from file 
-        // Hide the ID column
+        // Window loaded: authenticate the user
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // Load from contacts list file if it exists
-            LoadContacts();
 
-            // Hide the ID column
-            int idColumn = ContactEntry.IdColumnIndex();
-            dataGrid_contacts.Columns[idColumn].Visibility 
-                                      = Visibility.Hidden;
+            MessageBox.Show("Loading main window");
+
+            // Activate the authenticate window
+            AuthenticateWindow authWindow = new AuthenticateWindow();
+            authWindow.Owner = this;
+            authWindow.Show();
         }
 
         // Exiting application: Save contacts list
@@ -127,7 +125,7 @@ namespace WpfContacts
 
         // Load contacts from file if it exists,
         // and specify contact list as source for data grid
-        private void LoadContacts ()
+        public void LoadContacts ()
         {
             // Read contacts list file if it exists
             if (File.Exists(contactsFilePath + "\\" + contactsFileName))
@@ -136,9 +134,14 @@ namespace WpfContacts
                 ContactService.ReadFromFile(contactsFilePath + "\\" + contactsFileName);
 
                 // Specify contact list as source for data grid
-                dataGrid_contacts.ItemsSource = ContactService.ContactList;
+                this.dataGrid_contacts.ItemsSource = ContactService.ContactList;
 
                 // MessageBox.Show("ContactList count: " + ContactService.ContactList.Count);
+
+                // Hide the ID column
+                int idColumn = ContactEntry.IdColumnIndex();
+                this.dataGrid_contacts.Columns[idColumn].Visibility
+                                          = Visibility.Hidden;
             }
         }
     }
