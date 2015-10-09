@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfContacts"
         mc:Ignorable="d"
-        Title="AuthenticateWindow" Height="270" Width="445" Closed="Window_Closed">
+        Title="AuthenticateWindow" Height="270" Width="445" >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70*"/>

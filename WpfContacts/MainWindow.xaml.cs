@@ -91,16 +91,26 @@ namespace WpfContacts
             }
         }
 
-        // Window loaded: authenticate the user
+        // Window loaded: load the contacts & hide ID column
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // Read contacts list file if it exists
+            if (File.Exists(contactsFilePath + "\\" + contactsFileName))
+            {
+                // Read contacts from file
+                ContactService.ReadFromFile(contactsFilePath + "\\" + contactsFileName);
 
-            MessageBox.Show("Loading main window");
+                // Specify contact list as source for data grid
+                this.dataGrid_contacts.ItemsSource = ContactService.ContactList;
 
-            // Activate the authenticate window
-            AuthenticateWindow authWindow = new AuthenticateWindow();
-            authWindow.Owner = this;
-            authWindow.Show();
+                // MessageBox.Show("ContactList count: " + ContactService.ContactList.Count);                
+            }
+
+            // Hide the ID column
+            int idColumn = ContactEntry.IdColumnIndex();
+            this.dataGrid_contacts.Columns[idColumn].Visibility
+                                      = Visibility.Hidden;
+
         }
 
         // Exiting application: Save contacts list
@@ -122,27 +132,6 @@ namespace WpfContacts
             }
                        
         }
-
-        // Load contacts from file if it exists,
-        // and specify contact list as source for data grid
-        public void LoadContacts ()
-        {
-            // Read contacts list file if it exists
-            if (File.Exists(contactsFilePath + "\\" + contactsFileName))
-            {
-                // Read contacts from file
-                ContactService.ReadFromFile(contactsFilePath + "\\" + contactsFileName);
-
-                // Specify contact list as source for data grid
-                this.dataGrid_contacts.ItemsSource = ContactService.ContactList;
-
-                // MessageBox.Show("ContactList count: " + ContactService.ContactList.Count);
-
-                // Hide the ID column
-                int idColumn = ContactEntry.IdColumnIndex();
-                this.dataGrid_contacts.Columns[idColumn].Visibility
-                                          = Visibility.Hidden;
-            }
-        }
+ 
     }
 }

@@ -61,15 +61,17 @@ namespace WpfContacts
             if (VerificationCodeService.VerificationCodeMatches(textBox_code.Text))
             {
                 // Code matches:
-                // Display success, load the contacts, and close this window
+                // Display success, load the contacts window, 
+                //  and close this window
                 MessageBox.Show("You have been authenticated");
-                var mainWindow = (MainWindow)Owner;                                
-                mainWindow.LoadContacts();
-                mainWindow.dataGrid_contacts.Items.Refresh();
+
+                // Create main contacts window
+                MainWindow contactsWindow = new MainWindow();
+                contactsWindow.Show();
                 this.Close();
-                mainWindow.Show();
+               
             }
-            // If it doesn't match, display message to that effect and
+            // If code doesn't match, display message to that effect and
             //  set the window for getting a phone number
             else
             {
@@ -83,13 +85,6 @@ namespace WpfContacts
         {
             textBlock_smsError.Text = "";
             textBlock_smsError.Visibility = Visibility.Hidden;
-        }
-
-        // User attempted to close window: shut down application
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            MessageBox.Show("Shutting down application");
-            //Application.Current.Shutdown();
         }
 
         // Validate that input is phone number
