@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfContacts"
         mc:Ignorable="d"
-        Title="EditContactWindow" Height="350" Width="600">
+        Title="EditContactWindow" Height="350" Width="600" Background="AliceBlue">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="75*"/>
@@ -29,8 +29,8 @@
         <TextBox x:Name="textBox_state" HorizontalAlignment="Left" Height="23" Margin="176,229,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158" AcceptsReturn="True" Grid.Column="1"/>
         <Label x:Name="label_zipCode" Content="Zip Code" HorizontalAlignment="Left" Margin="350,198,0,0" VerticalAlignment="Top" Width="147" Grid.Column="1"/>
         <TextBox x:Name="textBox_zipCode" HorizontalAlignment="Left" Height="23" Margin="350,229,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="157" AcceptsReturn="True" Grid.Column="1"/>
-        <Button x:Name="button_quit" Content="Quit" HorizontalAlignment="Left" Margin="416.277,285,0,0" VerticalAlignment="Top" Width="91" Height="24" Grid.Column="1" Click="button_quit_Click"/>
-        <Button x:Name="button_save" Content="Save" HorizontalAlignment="Left" Margin="312.277,285,0,0" VerticalAlignment="Top" Width="82" Height="24" Click="button_save_Click" Grid.Column="1"/>
+        <Button x:Name="button_quit" Content="Quit" Background="#FF9DBFE0" HorizontalAlignment="Left" Margin="416.277,285,0,0" VerticalAlignment="Top" Width="91" Height="24" Grid.Column="1" Click="button_quit_Click"/>
+        <Button x:Name="button_save" Content="Save" Background="#FF9DBFE0" HorizontalAlignment="Left" Margin="312.277,285,0,0" VerticalAlignment="Top" Width="82" Height="24" Click="button_save_Click" Grid.Column="1"/>
         <Label x:Name="label_Id" Content="" HorizontalAlignment="Left" Margin="204,283,0,0" VerticalAlignment="Top" Width="65" Grid.Column="1" Visibility="Hidden"/>
         <CheckBox x:Name="checkBox_nonUSAddress" Content="" HorizontalAlignment="Left" Margin="10,294,0,0" VerticalAlignment="Top" Checked="checkBox_nonUSAddress_Checked" Unchecked="checkBox_nonUSAddress_Unchecked"/>
         <Label x:Name="label" Content="Address not in USA" HorizontalAlignment="Left" Margin="6,268,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="127"/>
